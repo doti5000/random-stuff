@@ -1,0 +1,23 @@
+{
+  "name": "@painsel/react-no-ai-badge",
+  "version": "1.0.0",
+  "description": "A highly-secured, self-destructing React component to protect your web assets from AI scraping.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "keywords": [
+    "react",
+    "no-ai",
+    "badge",
+    "anti-scraping",
+    "protection"
+  ],
+  "author": "painsel",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

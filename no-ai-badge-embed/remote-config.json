@@ -1,0 +1,9 @@
+{
+  "globalKillSwitch": false,
+  "allowedDomains": [
+    "localhost",
+    "127.0.0.1",
+    "your-trusted-website.com"
+  ],
+  "forceMobileHide": false
+}

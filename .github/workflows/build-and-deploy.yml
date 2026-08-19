@@ -1,0 +1,36 @@
+name: Auto-Build and Deploy Badge
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'no-ai-badge-embed/no-ai-badge.png'
+      - 'no-ai-badge-embed/create_embed.ps1'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run PowerShell Generator
+        run: |
+          cd no-ai-badge-embed
+          .\create_embed.ps1
+        shell: pwsh
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add no-ai-badge-embed/embed-badge.js
+          git commit -m "Automated build: Update embed-badge.js" || echo "No changes to commit"
+          git push
