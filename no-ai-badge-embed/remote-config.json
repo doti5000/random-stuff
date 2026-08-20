@@ -4,7 +4,12 @@
     "localhost",
     "127.0.0.1",
     "your-trusted-website.com",
-    "vercel.app"
+    "vercel.app",
+    "pages.dev",
+    "workers.dev",
+    "edgeone.app",
+    "edgeone.run",
+    "pagedrop.io"
   ],
   "forceMobileHide": false
 }
