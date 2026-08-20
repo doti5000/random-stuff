@@ -26,7 +26,7 @@ class NoAIBadgePlugin {
         $scramble = get_option('no_ai_badge_scramble', '0');
 
         echo "<!-- No-AI Badge Protection -->\n";
-        echo "<script src=\"https://random-stuff.britishdex.workers.dev/no-ai-badge-embed/embed-badge.js\"\n";
+        echo "<script src=\"https://random-stuff-swart-three.vercel.app/no-ai-badge-embed/embed-badge.js\"\n";
         echo "    data-position=\"" . esc_attr($position) . "\"\n";
         echo "    data-width=\"" . esc_attr($width) . "\"\n";
         echo "    data-margin=\"" . esc_attr($margin) . "\"\n";

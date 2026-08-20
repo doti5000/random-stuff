@@ -9,7 +9,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const SCRIPT_URL = 'https://random-stuff.britishdex.workers.dev/no-ai-badge-embed/embed-badge.js';
+const SCRIPT_URL = 'https://random-stuff-swart-three.vercel.app/no-ai-badge-embed/embed-badge.js';
 
 console.log('🛡️  Welcome to the No-AI Badge CLI Setup!');
 console.log('-------------------------------------------');
