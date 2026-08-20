@@ -26,20 +26,25 @@ module.exports = async (req, res) => {
 
         const redis = new Redis(url);
 
-        let origin = req.headers.origin || req.headers.referer || 'unknown';
-        // Clean origin
+        let targetUrl = req.headers.referer || req.headers.origin || 'unknown';
+        // Clean URL (remove query params for canonical tracking)
         try {
-            const u = new URL(origin);
-            origin = u.hostname;
+            if (targetUrl !== 'unknown') {
+                const u = new URL(targetUrl);
+                targetUrl = u.href.split('?')[0];
+            }
         } catch(e) {}
 
         // Increment total views
         const views = await redis.incr('no-ai-badge-total-views');
 
-        // Add to unique domains set and increment domain specific views
-        if (origin !== 'unknown') {
-            await redis.sadd('no-ai-badge-domains', origin);
-            await redis.incr(`no-ai-badge-views:${origin}`);
+        // Add to unique domains set and increment URL specific views
+        if (targetUrl !== 'unknown') {
+            try {
+                const domain = new URL(targetUrl).hostname;
+                await redis.sadd('no-ai-badge-domains', domain);
+            } catch(e) {}
+            await redis.incr(`no-ai-badge-views:${targetUrl}`);
         }
 
         redis.quit();

@@ -20,12 +20,12 @@ export default {
                 try {
                     const redis = new Redis(env.RNG_DB_REDIS_URL);
                     const referer = request.headers.get('referer') || request.headers.get('origin') || 'Unknown';
-                    let domain = 'Unknown';
-                    try { if (referer !== 'Unknown') domain = new URL(referer).hostname; } catch(e) {}
+                    let targetUrl = 'Unknown';
+                    try { if (referer !== 'Unknown') targetUrl = new URL(referer).href.split('?')[0]; } catch(e) {}
                     const ip = request.headers.get('cf-connecting-ip') || 'Unknown';
-                    const entry = JSON.stringify({ ip, userAgent, time: Date.now(), domain });
-                    await redis.lpush(`no-ai-badge-threats:${domain}`, entry);
-                    await redis.ltrim(`no-ai-badge-threats:${domain}`, 0, 99); // Keep latest 100 per domain
+                    const entry = JSON.stringify({ ip, userAgent, time: Date.now(), url: targetUrl });
+                    await redis.lpush(`no-ai-badge-threats:${targetUrl}`, entry);
+                    await redis.ltrim(`no-ai-badge-threats:${targetUrl}`, 0, 99); // Keep latest 100 per URL
                     redis.quit();
                 } catch(e) {}
             })());
