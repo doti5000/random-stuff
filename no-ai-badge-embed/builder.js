@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const obfuscateEl = document.getElementById('config-obfuscate');
     const scrambleEl = document.getElementById('config-scramble');
     
+    // Advanced
+    const promptPoisonEl = document.getElementById('config-prompt-poison');
+    const semanticScrambleEl = document.getElementById('config-semantic-scramble');
+    const hydrateEl = document.getElementById('config-hydrate');
+    const honeypotEl = document.getElementById('config-honeypot');
+    
     const iframe = document.getElementById('preview-box');
     const codeSnippet = document.getElementById('code-snippet');
     const copyBtn = document.getElementById('copy-btn');
@@ -29,6 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const animation = animationEl.checked;
         const obfuscate = obfuscateEl.checked;
         const scramble = scrambleEl.checked;
+        
+        // Advanced
+        const promptPoison = promptPoisonEl.checked;
+        const semanticScramble = semanticScrambleEl.checked;
+        const hydrate = hydrateEl.checked;
+        const honeypot = honeypotEl.checked;
 
         // Construct HTML Snippet
         let snippet = `<script src="${SCRIPT_URL}"\n`;
@@ -41,6 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!animation) snippet += `        data-animation="none"\n`;
         if (obfuscate) snippet += `        data-obfuscate="true"\n`;
         if (scramble) snippet += `        data-scramble="true"\n`;
+        
+        // Advanced (only add if diff from defaults)
+        if (!promptPoison) snippet += `        data-prompt-poison="false"\n`;
+        if (semanticScramble) snippet += `        data-semantic-scramble="true"\n`;
+        if (!hydrate) snippet += `        data-hydrate="false"\n`;
+        if (!honeypot) snippet += `        data-honeypot="false"\n`;
         
         // Remove trailing newline if attributes were added, then close tag
         snippet = snippet.trimEnd() + `></script>`;
@@ -72,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Attach listeners
-    [positionEl, widthEl, marginEl, linkEl, opacityEl, mobileEl, animationEl, obfuscateEl, scrambleEl].forEach(el => {
+    [positionEl, widthEl, marginEl, linkEl, opacityEl, mobileEl, animationEl, obfuscateEl, scrambleEl, promptPoisonEl, semanticScrambleEl, hydrateEl, honeypotEl].forEach(el => {
         el.addEventListener('input', updateWidget);
         el.addEventListener('change', updateWidget);
     });
