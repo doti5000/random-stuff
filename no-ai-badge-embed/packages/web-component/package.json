@@ -17,10 +17,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doti5000/random-stuff.git"
+    "url": "git+https://github.com/doti5000/random-stuff.git",
+    "directory": "no-ai-badge-embed/packages/web-component"
   },
   "bugs": {
     "url": "https://github.com/doti5000/random-stuff/issues"
   },
-  "homepage": "https://github.com/doti5000/random-stuff#readme"
+  "homepage": "https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed"
 }
