@@ -43,16 +43,14 @@ rl.question('What position do you want the badge? (bottom-right/bottom-left/top-
                 const bodyMatch = content.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
                 if (bodyMatch) {
                     const bodyContent = bodyMatch[1];
-                    const b64 = Buffer.from(bodyContent).toString('base64');
-                    // We don't have the script key available here, so we just do base64 in the CLI, 
-                    // and let embed-badge.js know we skipped XOR for this basic hydration, 
-                    // OR we XOR it here with the public key 42!
-                    let xorStr = '';
-                    const decoded = Buffer.from(b64, 'base64').toString('utf8'); // Wait, b64 of bodyContent
-                    for (let i = 0; i < b64.length; i++) {
-                        xorStr += String.fromCharCode(b64.charCodeAt(i) ^ 42);
+                    // 1. Convert to UTF-8 bytes
+                    const utf8Bytes = Buffer.from(bodyContent, 'utf8');
+                    // 2. XOR encrypt the bytes
+                    for(let i=0; i<utf8Bytes.length; i++) {
+                        utf8Bytes[i] = utf8Bytes[i] ^ 42;
                     }
-                    const finalB64 = Buffer.from(xorStr).toString('base64');
+                    // 3. Base64 encode
+                    const finalB64 = utf8Bytes.toString('base64');
 
                     const newBody = `\n<div data-noai-encrypt="true">\n${finalB64}\n</div>\n${snippet}`;
                     content = content.replace(bodyMatch[1], newBody);
