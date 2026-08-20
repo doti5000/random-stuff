@@ -19,10 +19,13 @@ export default {
             ctx.waitUntil((async () => {
                 try {
                     const redis = new Redis(env.RNG_DB_REDIS_URL);
+                    const referer = request.headers.get('referer') || request.headers.get('origin') || 'Unknown';
+                    let domain = 'Unknown';
+                    try { if (referer !== 'Unknown') domain = new URL(referer).hostname; } catch(e) {}
                     const ip = request.headers.get('cf-connecting-ip') || 'Unknown';
-                    const entry = JSON.stringify({ ip, userAgent, time: Date.now() });
-                    await redis.lpush('no-ai-badge-threats', entry);
-                    await redis.ltrim('no-ai-badge-threats', 0, 99); // Keep latest 100
+                    const entry = JSON.stringify({ ip, userAgent, time: Date.now(), domain });
+                    await redis.lpush(`no-ai-badge-threats:${domain}`, entry);
+                    await redis.ltrim(`no-ai-badge-threats:${domain}`, 0, 99); // Keep latest 100 per domain
                     redis.quit();
                 } catch(e) {}
             })());

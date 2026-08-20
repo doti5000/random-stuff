@@ -36,9 +36,10 @@ module.exports = async (req, res) => {
         // Increment total views
         const views = await redis.incr('no-ai-badge-total-views');
 
-        // Add to unique domains set
+        // Add to unique domains set and increment domain specific views
         if (origin !== 'unknown') {
             await redis.sadd('no-ai-badge-domains', origin);
+            await redis.incr(`no-ai-badge-views:${origin}`);
         }
 
         redis.quit();

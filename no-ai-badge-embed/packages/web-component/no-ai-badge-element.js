@@ -10,7 +10,7 @@ class NoAiBadgeElement extends HTMLElement {
         script.async = true;
 
         // Map HTML attributes to data-* attributes on the script
-        const attrs = ['position', 'width', 'margin', 'link', 'hideOnMobile', 'opacity', 'animation', 'analyticsEndpoint', 'printProtect', 'devtoolsProtect', 'watermark', 'shield', 'observer', 'rightClick'];
+        const attrs = ['position', 'width', 'margin', 'hideOnMobile', 'opacity', 'animation', 'analyticsEndpoint', 'printProtect', 'devtoolsProtect', 'watermark', 'shield', 'observer', 'rightClick'];
         
         attrs.forEach(attr => {
             if (this.hasAttribute(attr)) {
