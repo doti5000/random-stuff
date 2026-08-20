@@ -1,6 +1,6 @@
 {
   "name": "@painsel/react-no-ai-badge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A highly-secured, self-destructing React component to protect your web assets from AI scraping.",
   "main": "index.js",
   "types": "index.d.ts",
