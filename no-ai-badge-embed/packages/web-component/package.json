@@ -1,6 +1,6 @@
 {
   "name": "@painsel/no-ai-badge-element",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A native Web Component (Custom Element) wrapper for the No-AI Badge.",
   "main": "no-ai-badge-element.js",
   "keywords": [

@@ -1,6 +1,6 @@
 {
   "name": "@painsel/vue-no-ai-badge",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A highly-secured, self-destructing Vue component to protect your web assets from AI scraping.",
   "main": "dist/vue-no-ai-badge.umd.js",
   "module": "dist/vue-no-ai-badge.es.js",
