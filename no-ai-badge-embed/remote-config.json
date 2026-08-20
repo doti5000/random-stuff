@@ -7,9 +7,17 @@
     "vercel.app",
     "pages.dev",
     "workers.dev",
+    "netlify.app",
+    "onrender.com",
     "edgeone.app",
     "edgeone.run",
-    "pagedrop.io"
+    "pagedrop.io",
+    "webflow.io",
+    "framer.app",
+    "github.io",
+    "gitlab.io",
+    "firebaseapp.com",
+    "web.app"
   ],
   "forceMobileHide": false
 }

@@ -83,6 +83,7 @@
         
         <button id="pingBtn">Send Ping request (/api/ping)</button>
         <button id="statsBtn" style="background-color: #10b981; margin-left: 10px;">Refresh Stats (/api/stats)</button>
+        <button id="threatsBtn" style="background-color: #ef4444; margin-left: 10px;">Fetch Threats (/api/threats)</button>
 
         <div class="stats-grid">
             <div class="stat-card">
@@ -92,6 +93,10 @@
             <div class="stat-card">
                 <div class="stat-label">Unique Domains</div>
                 <div class="stat-value" id="uniqueDomains">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Recent Threats</div>
+                <div class="stat-value" id="totalThreats" style="color: #ef4444;">-</div>
             </div>
         </div>
 
@@ -148,11 +153,29 @@
             }
         }
 
+        async function fetchThreats() {
+            log('Fetching GET request from /api/threats...');
+            try {
+                const res = await fetch('/api/threats');
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('totalThreats').textContent = data.threats ? data.threats.length : 0;
+                    log('SUCCESS: Fetched ' + (data.threats ? data.threats.length : 0) + ' threats.');
+                } else {
+                    log('ERROR: ' + res.status + ' ' + res.statusText);
+                }
+            } catch (err) {
+                log('ERROR: ' + err.message);
+            }
+        }
+
         document.getElementById('pingBtn').addEventListener('click', sendPing);
         document.getElementById('statsBtn').addEventListener('click', fetchStats);
+        document.getElementById('threatsBtn').addEventListener('click', fetchThreats);
 
         // Fetch initial stats on load
         fetchStats();
+        fetchThreats();
     </script>
 </body>
 </html>
