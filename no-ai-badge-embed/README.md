@@ -59,3 +59,24 @@ If you ever update the `no-ai-badge.png` image and want to regenerate the javasc
 .\create_embed.ps1
 ```
 This will automatically generate a fresh `embed-badge.js` with all the protections intact.
+
+## NPM Packages
+
+You can also install the No-AI Badge using our official NPM packages:
+
+### React Component
+```bash
+npm i @painsel/react-no-ai-badge 
+```
+
+### Native Web Component
+```bash
+npm i @painsel/no-ai-badge-element 
+```
+
+### CLI Setup Utility
+To automatically inject the badge script into your `index.html`:
+```bash
+npm i @painsel/add-no-ai-badge 
+```
+Then run: `npx add-no-ai-badge`
