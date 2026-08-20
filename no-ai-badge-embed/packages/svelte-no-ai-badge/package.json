@@ -1,0 +1,34 @@
+{
+  "name": "@painsel/svelte-no-ai-badge",
+  "version": "1.0.0",
+  "description": "A highly-secured, self-destructing Svelte component to protect your web assets from AI scraping.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "svelte-package"
+  },
+  "peerDependencies": {
+    "svelte": "^4.0.0"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "^2.0.0",
+    "svelte": "^4.0.0"
+  },
+  "keywords": [
+    "svelte",
+    "no-ai",
+    "badge",
+    "anti-scraping"
+  ],
+  "author": "painsel",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

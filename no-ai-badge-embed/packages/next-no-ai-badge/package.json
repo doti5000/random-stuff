@@ -1,0 +1,24 @@
+{
+  "name": "@painsel/next-no-ai-badge",
+  "version": "1.0.0",
+  "description": "A highly-secured, self-destructing Next.js component to protect your web assets from AI scraping.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "next": ">=12.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "keywords": [
+    "nextjs",
+    "next",
+    "no-ai",
+    "badge",
+    "anti-scraping"
+  ],
+  "author": "painsel",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

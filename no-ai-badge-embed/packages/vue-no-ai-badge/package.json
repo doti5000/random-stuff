@@ -1,0 +1,35 @@
+{
+  "name": "@painsel/vue-no-ai-badge",
+  "version": "1.0.0",
+  "description": "A highly-secured, self-destructing Vue component to protect your web assets from AI scraping.",
+  "main": "dist/vue-no-ai-badge.umd.js",
+  "module": "dist/vue-no-ai-badge.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-no-ai-badge.es.js",
+      "require": "./dist/vue-no-ai-badge.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.0.0",
+    "vue": "^3.0.0"
+  },
+  "keywords": [
+    "vue",
+    "no-ai",
+    "badge",
+    "anti-scraping"
+  ],
+  "author": "painsel",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
