@@ -6,3 +6,6 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = "."
 binding = "ASSETS"
+
+[vars]
+RNG_DB_REDIS_URL = "redis://default:0zxVD7jrk7WoHaO1Ix9PTtpnzJt8eXLN@badge-efficient-jewel-60369.db.redis.io:18431"
