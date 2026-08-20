@@ -182,17 +182,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const domain = urlParams.get('domain');
+            // Fallback to domain if url isn't provided for backwards compatibility
+            const targetUrl = urlParams.get('url') || urlParams.get('domain');
             
-            if (!domain) {
-                document.getElementById('loading').textContent = 'Error: No domain specified.';
+            if (!targetUrl) {
+                document.getElementById('loading').textContent = 'Error: No URL specified.';
                 return;
             }
             
-            document.getElementById('domain-name').textContent = domain;
+            document.getElementById('domain-name').textContent = targetUrl;
             
             try {
-                const response = await fetch(`/api/domain-stats?domain=${encodeURIComponent(domain)}`);
+                const response = await fetch(`/api/domain-stats?url=${encodeURIComponent(targetUrl)}`);
                 const data = await response.json();
                 
                 if (data.error) throw new Error(data.error);
