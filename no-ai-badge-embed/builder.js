@@ -81,4 +81,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial render
     updateWidget();
+
+    // Fetch Analytics Data
+    async function fetchAnalytics() {
+        try {
+            const SCRIPT_URL_ROOT = SCRIPT_URL.split('/no-ai-badge-embed')[0];
+            const response = await fetch(`${SCRIPT_URL_ROOT}/api/stats`);
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('stat-views').textContent = data.views.toLocaleString();
+                document.getElementById('stat-domains').textContent = data.domains.toLocaleString();
+            }
+        } catch(e) {
+            console.error('Failed to load analytics', e);
+        }
+    }
+    fetchAnalytics();
 });
