@@ -2,6 +2,9 @@
   "name": "no-ai-badge",
   "version": "1.0.0",
   "description": "Root package for Vercel Serverless functions",
+  "scripts": {
+    "build": "echo \"No build step required for static site\""
+  },
   "dependencies": {
     "ioredis": "^5.3.2"
   }
