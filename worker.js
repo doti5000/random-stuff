@@ -45,6 +45,43 @@ export default {
                     // Log to Domain specific
                     await redis.lpush(`no-ai-badge-threats:domain:${domain}`, entryDomain);
                     await redis.ltrim(`no-ai-badge-threats:domain:${domain}`, 0, 99);
+                    
+                    // Trigger Discord Webhook if threshold reached
+                    let webhookUrl = env.DISCORD_WEBHOOK_URL;
+                    if (!webhookUrl) {
+                        try {
+                            const confRes = await fetch('https://random-stuff-swart-three.vercel.app/no-ai-badge-embed/remote-config.json');
+                            if (confRes.ok) {
+                                const rConfig = await confRes.json();
+                                webhookUrl = rConfig.discordWebhookUrl;
+                            }
+                        } catch(e) {}
+                    }
+
+                    if (webhookUrl) {
+                        const alertKey = `no-ai-badge-alerts:${domain}`;
+                        const recentAlerts = await redis.incr(alertKey);
+                        if (recentAlerts === 1) {
+                            await redis.expire(alertKey, 60); // 1 minute window
+                        }
+                        
+                        // Send alert if we hit 10 threats in the 1 minute window
+                        if (recentAlerts === 10) {
+                            const payload = {
+                                embeds: [{
+                                    title: "🚨 High Scraping Activity Detected",
+                                    description: `**Domain:** ${domain}\n**URL:** ${targetUrl}\n**Recent Bot:** ${userAgent}\n**IP:** ${ip}\n\n*10+ scraping attempts blocked in the last minute.*`,
+                                    color: 16711680
+                                }]
+                            };
+                            fetch(webhookUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            }).catch(() => {});
+                        }
+                    }
+
                     redis.quit();
                 } catch(e) {}
             })());
