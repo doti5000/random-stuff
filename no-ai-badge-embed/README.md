@@ -52,14 +52,6 @@ The badge is protected by 4 advanced anti-theft methods:
 4. **Dynamic Canvas Watermark**: The image is drawn to an HTML `<canvas>` with a translucent "NO AI" watermark stamped diagonally across it to deter screenshots.
 Additionally, standard right-click, text selection, and image drag-and-drop are completely disabled on the badge.
 
-## Regenerating the Badge
-If you ever update the `no-ai-badge.png` image and want to regenerate the javascript file, simply run the PowerShell script:
-
-```powershell
-.\create_embed.ps1
-```
-This will automatically generate a fresh `embed-badge.js` with all the protections intact.
-
 ## NPM Packages
 
 You can also install the No-AI Badge using our official NPM packages:
