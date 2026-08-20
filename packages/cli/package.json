@@ -15,5 +15,13 @@
     "anti-scraping"
   ],
   "author": "painsel",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doti5000/random-stuff.git"
+  },
+  "bugs": {
+    "url": "https://github.com/doti5000/random-stuff/issues"
+  },
+  "homepage": "https://github.com/doti5000/random-stuff#readme"
 }
