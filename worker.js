@@ -2,15 +2,16 @@ import Redis from 'ioredis';
 
 // Common AI Bots
 const AI_BOTS = [
-    'CCBot', 'GPTBot', 'ChatGPT-User', 'Google-Extended', 
-    'Anthropic-ai', 'Omgilibot', 'Omgili', 'FacebookBot', 
-    'Diffbot', 'Bytespider', 'ImagesiftBot'
+    'ccbot', 'gptbot', 'chatgpt-user', 'google-extended', 
+    'anthropic-ai', 'omgilibot', 'omgili', 'facebookbot', 
+    'diffbot', 'bytespider', 'imagesiftbot', 'oai-searchbot',
+    'claudebot', 'perplexitybot', 'applebot-extended'
 ];
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    const userAgent = request.headers.get('User-Agent') || '';
+    const userAgent = (request.headers.get('User-Agent') || '').toLowerCase();
     
     // 1. Anti-Scraper Middleware with Tarpitting and Threat Logging
     const isBot = AI_BOTS.some(bot => userAgent.includes(bot));
