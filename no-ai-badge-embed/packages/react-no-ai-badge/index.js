@@ -16,7 +16,6 @@ function NoAiBadge(props) {
     if (props.position) script.dataset.position = props.position;
     if (props.width) script.dataset.width = props.width;
     if (props.margin) script.dataset.margin = props.margin;
-    if (props.link) script.dataset.link = props.link;
     if (props.hideOnMobile) script.dataset.hideOnMobile = 'true';
     if (props.opacity) script.dataset.opacity = props.opacity;
     if (props.animation === 'none') script.dataset.animation = 'none';

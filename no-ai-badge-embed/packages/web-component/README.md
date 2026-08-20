@@ -58,6 +58,7 @@ You can configure the badge by passing standard HTML attributes:
 
 Check out our other official integrations depending on your stack:
 
+- **[React Component](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed/packages/react-no-ai-badge)**: `<NoAIBadge />` component (`@painsel/react-no-ai-badge`)
 - **[CLI Setup Utility](https://github.com/doti5000/random-stuff/tree/main/packages/cli)**: Automatically injects the badge script into your `index.html`. (`@painsel/add-no-ai-badge`)
 - **[WordPress Plugin](https://github.com/doti5000/random-stuff/tree/main/packages/wordpress-no-ai-badge)**: A fully featured WordPress plugin with an admin UI to manage your badge without code.
 - **[Vanilla Embed](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed)**: The core script for manual integration.

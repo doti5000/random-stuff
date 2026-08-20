@@ -26,6 +26,7 @@ From this settings page, you can customize:
 
 Check out our other official integrations depending on your stack:
 
+- **[React Component](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed/packages/react-no-ai-badge)**: `<NoAIBadge />` component for React applications. (`@painsel/react-no-ai-badge`)
 - **[Vanilla Embed](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed)**: The core script for manual integration in raw HTML.
 - **[Native Web Component](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed/packages/web-component)**: `<no-ai-badge>` Custom Element wrapper (`@painsel/no-ai-badge-element`)
 - **[CLI Setup Utility](https://github.com/doti5000/random-stuff/tree/main/packages/cli)**: Automatically injects the badge script into any HTML project. (`@painsel/add-no-ai-badge`)

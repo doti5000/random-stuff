@@ -17,11 +17,6 @@ export interface NoAiBadgeProps {
   margin?: number | string;
   
   /**
-   * Make the badge clickable by passing a full URL.
-   */
-  link?: string;
-  
-  /**
    * Automatically hide the badge on screens smaller than 768px.
    */
   hideOnMobile?: boolean;

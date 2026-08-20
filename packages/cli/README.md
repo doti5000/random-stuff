@@ -41,6 +41,7 @@ If you prefer to add the script tag manually, you can simply add the following t
 
 Check out our other official integrations depending on your stack:
 
+- **[React Component](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed/packages/react-no-ai-badge)**: `<NoAIBadge />` component (`@painsel/react-no-ai-badge`)
 - **[Native Web Component](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed/packages/web-component)**: `<no-ai-badge>` Custom Element wrapper (`@painsel/no-ai-badge-element`)
 - **[WordPress Plugin](https://github.com/doti5000/random-stuff/tree/main/packages/wordpress-no-ai-badge)**: A fully featured WordPress plugin with an admin UI to manage your badge without code.
 - **[Vanilla Embed](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed)**: The core script for manual integration.

@@ -50,11 +50,19 @@ The component accepts all standard configuration options as React props:
 | `position` | `'bottom-right' \| 'bottom-left' \| 'top-right' \| 'top-left'` | `'bottom-right'` | Screen position for the badge |
 | `width` | `number` | `120` | Width of the badge in pixels |
 | `margin` | `number` | `20` | Distance from the edge of the screen in pixels |
-| `link` | `string` | `undefined` | Optional URL to open when the badge is clicked |
 | `hideOnMobile` | `boolean` | `false` | Automatically hide the badge on screens `< 768px` |
 | `opacity` | `number` | `1.0` | Opacity of the badge (0.1 to 1.0) |
 | `animation` | `'scale' \| 'none'` | `'scale'` | Hover animation style |
 | `physics` | `boolean` | `false` | Enable anti-scraper runaway physics (teleports on hover) |
 
+## Related Packages
+
+Check out our other official integrations depending on your stack:
+
+- **[Native Web Component](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed/packages/web-component)**: `<no-ai-badge>` Custom Element wrapper (`@painsel/no-ai-badge-element`)
+- **[CLI Setup Utility](https://github.com/doti5000/random-stuff/tree/main/packages/cli)**: Automatically injects the badge script into your `index.html`. (`@painsel/add-no-ai-badge`)
+- **[WordPress Plugin](https://github.com/doti5000/random-stuff/tree/main/packages/wordpress-no-ai-badge)**: A fully featured WordPress plugin with an admin UI to manage your badge without code.
+- **[Vanilla Embed](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed)**: The core script for manual integration.
+
 ## Learn More
-For advanced anti-theft configuration options, check out the [main repository documentation](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed).
+For advanced anti-theft configuration options, check out the [main repository documentation](https://github.com/doti5000/random-stuff/tree/main).

@@ -9,6 +9,7 @@ This repository contains the core embed script, serverless APIs for telemetry an
 Depending on your stack, you can use one of our official integrations to easily add the No-AI Badge to your project!
 
 - **[Vanilla HTML / JS Embed](./no-ai-badge-embed/)**: The core script. Add a single `<script>` tag to any website.
+- **[React Component](./no-ai-badge-embed/packages/react-no-ai-badge/)**: `<NoAIBadge />` component for React applications. (`npm i @painsel/react-no-ai-badge`)
 - **[CLI Setup Utility](./packages/cli/)**: Automatically injects the badge script into your `index.html`. (`npx @painsel/add-no-ai-badge`)
 - **[Native Web Component](./no-ai-badge-embed/packages/web-component/)**: A Custom Element wrapper. (`npm i @painsel/no-ai-badge-element`)
 - **[WordPress Plugin](./packages/wordpress-no-ai-badge/)**: A fully featured WordPress plugin with an admin settings page to configure your badge visually without touching code.
