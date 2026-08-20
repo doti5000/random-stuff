@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const opacityEl = document.getElementById('config-opacity');
     const mobileEl = document.getElementById('config-mobile');
     const animationEl = document.getElementById('config-animation');
+    const obfuscateEl = document.getElementById('config-obfuscate');
+    const scrambleEl = document.getElementById('config-scramble');
     
     const iframe = document.getElementById('preview-box');
     const codeSnippet = document.getElementById('code-snippet');
@@ -25,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const opacity = parseFloat(opacityEl.value) || 1.0;
         const mobile = mobileEl.checked;
         const animation = animationEl.checked;
+        const obfuscate = obfuscateEl.checked;
+        const scramble = scrambleEl.checked;
 
         // Construct HTML Snippet
         let snippet = `<script src="${SCRIPT_URL}"\n`;
@@ -35,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobile) snippet += `        data-hide-on-mobile="true"\n`;
         if (opacity !== 1.0) snippet += `        data-opacity="${opacity}"\n`;
         if (!animation) snippet += `        data-animation="none"\n`;
+        if (obfuscate) snippet += `        data-obfuscate="true"\n`;
+        if (scramble) snippet += `        data-scramble="true"\n`;
         
         // Remove trailing newline if attributes were added, then close tag
         snippet = snippet.trimEnd() + `></script>`;
@@ -66,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Attach listeners
-    [positionEl, widthEl, marginEl, linkEl, opacityEl, mobileEl, animationEl].forEach(el => {
+    [positionEl, widthEl, marginEl, linkEl, opacityEl, mobileEl, animationEl, obfuscateEl, scrambleEl].forEach(el => {
         el.addEventListener('input', updateWidget);
         el.addEventListener('change', updateWidget);
     });
@@ -147,5 +153,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Fetch Threat Intelligence Feed
+    async function fetchThreats() {
+        try {
+            const SCRIPT_URL_ROOT = SCRIPT_URL.split('/no-ai-badge-embed')[0];
+            const response = await fetch(`${SCRIPT_URL_ROOT}/api/threats`);
+            if (response.ok) {
+                const data = await response.json();
+                const threatsList = document.getElementById('stat-threats');
+                if (data.threats && data.threats.length > 0) {
+                    threatsList.innerHTML = '';
+                    data.threats.forEach((threat, index) => {
+                        const li = document.createElement('li');
+                        li.style.padding = '10px 15px';
+                        li.style.borderBottom = index < data.threats.length - 1 ? '1px solid #eee' : 'none';
+                        li.style.display = 'flex';
+                        li.style.flexDirection = 'column';
+                        
+                        const titleSpan = document.createElement('span');
+                        titleSpan.style.fontWeight = '600';
+                        titleSpan.style.color = '#ef4444';
+                        titleSpan.textContent = `Blocked Bot: ${threat.ip}`;
+                        
+                        const uaSpan = document.createElement('span');
+                        uaSpan.style.fontSize = '0.85em';
+                        uaSpan.style.color = '#666';
+                        uaSpan.style.marginTop = '4px';
+                        uaSpan.style.wordBreak = 'break-all';
+                        uaSpan.textContent = threat.userAgent;
+                        
+                        li.appendChild(titleSpan);
+                        li.appendChild(uaSpan);
+                        threatsList.appendChild(li);
+                    });
+                } else {
+                    threatsList.innerHTML = '<li style="padding: 10px; text-align: center; color: #666;">No threats blocked recently</li>';
+                }
+            }
+        } catch(e) {
+            console.error('Failed to load threats', e);
+        }
+    }
+    
     fetchAnalytics();
+    fetchThreats();
+    setInterval(fetchThreats, 10000); // Live feed
 });
