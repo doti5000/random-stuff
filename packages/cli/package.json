@@ -1,0 +1,19 @@
+{
+  "name": "@painsel/add-no-ai-badge",
+  "version": "1.0.0",
+  "description": "CLI tool to automatically inject the No-AI Badge into your website",
+  "main": "cli.js",
+  "bin": {
+    "add-no-ai-badge": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "no-ai",
+    "badge",
+    "anti-scraping"
+  ],
+  "author": "painsel",
+  "license": "ISC"
+}

@@ -91,10 +91,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 document.getElementById('stat-views').textContent = data.views.toLocaleString();
                 document.getElementById('stat-domains').textContent = data.domains.toLocaleString();
+                
+                // Render Top Countries
+                const countriesList = document.getElementById('stat-countries');
+                if (data.topCountries && data.topCountries.length > 0) {
+                    countriesList.innerHTML = '';
+                    data.topCountries.forEach((country, index) => {
+                        const li = document.createElement('li');
+                        li.style.padding = '10px 15px';
+                        li.style.borderBottom = index < data.topCountries.length - 1 ? '1px solid #eee' : 'none';
+                        li.style.display = 'flex';
+                        li.style.justifyContent = 'space-between';
+                        li.style.alignItems = 'center';
+                        
+                        const nameSpan = document.createElement('span');
+                        nameSpan.style.fontWeight = '600';
+                        nameSpan.textContent = getCountryName(country.code) + ' ' + getFlagEmoji(country.code);
+                        
+                        const countSpan = document.createElement('span');
+                        countSpan.style.color = '#ef4444';
+                        countSpan.style.fontWeight = '800';
+                        countSpan.textContent = country.count.toLocaleString();
+                        
+                        li.appendChild(nameSpan);
+                        li.appendChild(countSpan);
+                        countriesList.appendChild(li);
+                    });
+                } else {
+                    countriesList.innerHTML = '<li style="padding: 10px; text-align: center; color: #666;">No data yet</li>';
+                }
             }
         } catch(e) {
             console.error('Failed to load analytics', e);
         }
     }
+    
+    // Helper to convert ISO country code to emoji flag
+    function getFlagEmoji(countryCode) {
+        if (!countryCode || countryCode.length !== 2) return '🌍';
+        const codePoints = countryCode
+            .toUpperCase()
+            .split('')
+            .map(char =>  127397 + char.charCodeAt(0));
+        return String.fromCodePoint(...codePoints);
+    }
+    
+    // Helper to get basic country name (Intl API)
+    function getCountryName(countryCode) {
+        if (!countryCode || countryCode === 'Unknown' || countryCode === 'XX') return 'Unknown Region';
+        try {
+            const displayNames = new Intl.DisplayNames(['en'], {type: 'region'});
+            return displayNames.of(countryCode);
+        } catch(e) {
+            return countryCode;
+        }
+    }
+    
     fetchAnalytics();
 });
