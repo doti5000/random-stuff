@@ -1,5 +1,19 @@
 {
   "framework": null,
   "buildCommand": "echo 'No build step required'",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard/dist/index.html"
+    },
+    {
+      "source": "/dashboard/",
+      "destination": "/dashboard/dist/index.html"
+    },
+    {
+      "source": "/dashboard/:match*",
+      "destination": "/dashboard/dist/:match*"
+    }
+  ]
 }
