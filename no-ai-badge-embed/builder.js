@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch Analytics Data
     async function fetchAnalytics() {
         try {
-            const API_URL_ROOT = 'https://random-stuff.britishdex.workers.dev';
-            const response = await fetch(`${API_URL_ROOT}/api/stats`);
+            const SCRIPT_URL_ROOT = SCRIPT_URL.split('/no-ai-badge-embed')[0];
+            const response = await fetch(`${SCRIPT_URL_ROOT}/api/stats`);
             if (response.ok) {
                 const data = await response.json();
                 document.getElementById('stat-views').textContent = data.views.toLocaleString();
@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch Threat Intelligence Feed
     async function fetchThreats() {
         try {
-            const API_URL_ROOT = 'https://random-stuff.britishdex.workers.dev';
-            const response = await fetch(`${API_URL_ROOT}/api/threats`);
+            const SCRIPT_URL_ROOT = SCRIPT_URL.split('/no-ai-badge-embed')[0];
+            const response = await fetch(`${SCRIPT_URL_ROOT}/api/threats`);
             if (response.ok) {
                 const data = await response.json();
                 const threatsList = document.getElementById('stat-threats');
