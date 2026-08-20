@@ -101,7 +101,12 @@ export default {
 
         return new Response(stream, {
             status: 403,
-            headers: { 'Content-Type': 'text/plain' }
+            headers: { 
+                'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers': '*'
+            }
         });
     }
 
@@ -113,6 +118,20 @@ export default {
 
     if (request.method === 'OPTIONS') {
         return new Response(null, { headers: corsHeaders });
+    }
+
+    // Tier 1 to Tier 3 Bridge: Verify Bot API
+    if (url.pathname === '/api/verify-bot') {
+        const isBotCheck = AI_BOTS.some(bot => userAgent.includes(bot));
+        if (isBotCheck) {
+            // Threat logging is already handled by the middleware above for ANY path,
+            // but wait, the middleware returned a 403 stream for bots!
+            // Actually, if we want this endpoint to be callable by JS, we should just let the middleware handle it!
+            // Wait, if the middleware catches the bot, it returns a 403 text stream, which fetch() will see as !res.ok.
+            // So we don't even need a special endpoint if the middleware already intercepts everything!
+            // Let's just create a dummy endpoint that returns {isBot: false} if the middleware didn't intercept it.
+        }
+        return Response.json({ isBot: false }, { headers: corsHeaders });
     }
     
     // Poison Honeypot Endpoint
