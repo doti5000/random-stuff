@@ -54,5 +54,13 @@ You can configure the badge by passing standard HTML attributes:
 - `animation`: Hover animation style, e.g., `"none"`
 - `physics`: Set to `"true"` to enable anti-scraper runaway physics
 
+## Related Packages
+
+Check out our other official integrations depending on your stack:
+
+- **[CLI Setup Utility](https://github.com/doti5000/random-stuff/tree/main/packages/cli)**: Automatically injects the badge script into your `index.html`. (`@painsel/add-no-ai-badge`)
+- **[WordPress Plugin](https://github.com/doti5000/random-stuff/tree/main/packages/wordpress-no-ai-badge)**: A fully featured WordPress plugin with an admin UI to manage your badge without code.
+- **[Vanilla Embed](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed)**: The core script for manual integration.
+
 ## Learn More
-For advanced anti-theft configuration options, check out the [main repository documentation](https://github.com/doti5000/random-stuff/tree/main/no-ai-badge-embed).
+For advanced anti-theft configuration options, check out the [main repository documentation](https://github.com/doti5000/random-stuff/tree/main).
