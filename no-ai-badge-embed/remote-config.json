@@ -3,7 +3,8 @@
   "allowedDomains": [
     "localhost",
     "127.0.0.1",
-    "your-trusted-website.com"
+    "your-trusted-website.com",
+    "vercel.app"
   ],
   "forceMobileHide": false
 }
