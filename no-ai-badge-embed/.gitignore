@@ -31,3 +31,6 @@ node_modules/
 
 # Build Scripts
 create_embed.ps1
+
+# Source Images
+no-ai-badge.png
