@@ -11,9 +11,9 @@ module.exports = async (req, res) => {
         return;
     }
 
-    const { domain } = req.query;
-    if (!domain) {
-        return res.status(400).json({ error: 'Missing domain parameter' });
+    const { url: targetUrl } = req.query;
+    if (!targetUrl) {
+        return res.status(400).json({ error: 'Missing url parameter' });
     }
 
     try {
@@ -25,17 +25,17 @@ module.exports = async (req, res) => {
 
         const redis = new Redis(url);
 
-        // Get total views for Domain
-        const viewsStr = await redis.get(`no-ai-badge-views:domain:${domain}`);
+        // Get total views for URL
+        const viewsStr = await redis.get(`no-ai-badge-views:url:${targetUrl}`);
         const views = parseInt(viewsStr || 0, 10);
         
-        // Get threats for Domain
-        const threatsRaw = await redis.lrange(`no-ai-badge-threats:domain:${domain}`, 0, 99);
+        // Get threats for URL
+        const threatsRaw = await redis.lrange(`no-ai-badge-threats:url:${targetUrl}`, 0, 99);
         const threats = threatsRaw.map(t => JSON.parse(t));
 
         redis.quit();
         res.status(200).json({ 
-            domain,
+            url: targetUrl,
             views,
             threats 
         });

@@ -193,8 +193,8 @@
             document.getElementById('domain-name').textContent = targetUrl;
             
             try {
-                // Send both url and domain to be safe during Vercel deployment cache transitions
-                const response = await fetch(`/api/domain-stats?url=${encodeURIComponent(targetUrl)}&domain=${encodeURIComponent(targetUrl)}`);
+                // Fetch URL-specific stats from the new dedicated endpoint
+                const response = await fetch(`/api/url-stats?url=${encodeURIComponent(targetUrl)}`);
                 const data = await response.json();
                 
                 if (data.error) throw new Error(data.error);

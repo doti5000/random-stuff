@@ -21,11 +21,30 @@ export default {
                     const redis = new Redis(env.RNG_DB_REDIS_URL);
                     const referer = request.headers.get('referer') || request.headers.get('origin') || 'Unknown';
                     let targetUrl = 'Unknown';
-                    try { if (referer !== 'Unknown') targetUrl = new URL(referer).href.split('?')[0]; } catch(e) {}
+                    let domain = 'Unknown';
+                    try { 
+                        if (referer !== 'Unknown') {
+                            const u = new URL(referer);
+                            targetUrl = u.href.split('?')[0]; 
+                            domain = u.hostname;
+                        }
+                    } catch(e) {}
+                    
                     const ip = request.headers.get('cf-connecting-ip') || 'Unknown';
-                    const entry = JSON.stringify({ ip, userAgent, time: Date.now(), url: targetUrl });
-                    await redis.lpush(`no-ai-badge-threats:${targetUrl}`, entry);
-                    await redis.ltrim(`no-ai-badge-threats:${targetUrl}`, 0, 99); // Keep latest 100 per URL
+                    const entryUrl = JSON.stringify({ ip, userAgent, time: Date.now(), url: targetUrl });
+                    const entryDomain = JSON.stringify({ ip, userAgent, time: Date.now(), domain });
+                    
+                    // Log to global
+                    await redis.lpush('no-ai-badge-threats', entryUrl);
+                    await redis.ltrim('no-ai-badge-threats', 0, 99);
+                    
+                    // Log to URL specific
+                    await redis.lpush(`no-ai-badge-threats:url:${targetUrl}`, entryUrl);
+                    await redis.ltrim(`no-ai-badge-threats:url:${targetUrl}`, 0, 99);
+                    
+                    // Log to Domain specific
+                    await redis.lpush(`no-ai-badge-threats:domain:${domain}`, entryDomain);
+                    await redis.ltrim(`no-ai-badge-threats:domain:${domain}`, 0, 99);
                     redis.quit();
                 } catch(e) {}
             })());
