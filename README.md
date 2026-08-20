@@ -1,8 +1,11 @@
 # No-AI Badge Project
 
-The **No-AI Badge** is a highly-secured, self-destructing web widget designed to protect your art and digital assets from unauthorized AI scraping. 
+No-AI Shield is a **Full-Stack 3-Tier AI Protection Suite**, defending websites across the entire stack:
+1. **Tier 1 (Client):** `embed-badge.js` natively injects Client-Side Execution Blockers to wipe the DOM against headless browsers (like ChatGPT), visual glitches, Semantic Scrambling, and Prompt Poisoning.
+2. **Tier 2 (Build):** The CLI (`packages/cli`) automates Base64 HTML Body Encryption (XOR Hydration) during your build process, ensuring non-JS bots only see gibberish.
+3. **Tier 3 (Edge):** The `packages/edge-shield` (Cloudflare Worker) network-level firewall natively integrates to intercept and tarpit known AI IP addresses and User-Agents before they even hit your server.
 
-This repository contains the core embed script, serverless APIs for telemetry and analytics, and several official packages to integrate the badge into any stack.
+Additionally, `packages/analytics-api` offers a deployable Vercel serverless API to monitor blocked threats and track unique domains using the badge.
 
 ## Advanced LLM Evasion Ecosystem
 No-AI Shield is more than just a visual badge; it actively defends your site against modern scraping techniques:

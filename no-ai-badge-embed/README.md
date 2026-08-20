@@ -1,9 +1,11 @@
 # No-AI Badge Embed
 
-This folder contains the generator script and the generated javascript to embed a highly-protected "No AI" badge on your website.
+The No-AI Badge Embed is a drop-in protection suite designed to be deployed across three tiers:
+1. **Tier 1 (Client):** Include `embed-badge.js` on your site.
+2. **Tier 2 (Build):** Encrypt your HTML at build-time using `packages/cli` (XOR Hydration).
+3. **Tier 3 (Edge):** Deploy `packages/edge-shield` to Cloudflare to block bad bots at the network level.
 
-## How to Embed
-To add the badge to your website, simply copy and paste the following HTML snippet into your website's HTML (either in the `<head>` or anywhere in the `<body>`):
+If you don't use Tier 2 or 3, Tier 1 alone provides strong defenses against headless browsers and VLMs. To add the badge to your website, simply copy and paste the following HTML snippet into your website's HTML (either in the `<head>` or anywhere in the `<body>`):
 
 ```html
 <!-- Anti-theft "No AI" Badge -->
