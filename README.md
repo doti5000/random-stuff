@@ -4,6 +4,13 @@ The **No-AI Badge** is a highly-secured, self-destructing web widget designed to
 
 This repository contains the core embed script, serverless APIs for telemetry and analytics, and several official packages to integrate the badge into any stack.
 
+## Advanced LLM Evasion Ecosystem
+No-AI Shield is more than just a visual badge; it actively defends your site against modern scraping techniques:
+1. **Casual Prompt Poisoning:** Injects conversational prompt overrides to exploit RLHF behaviors in LLM crawlers.
+2. **Semantic Scrambling:** Physically reverses DOM strings and re-aligns them with CSS, feeding AI crawlers incomprehensible word-salad while keeping the site readable for humans.
+3. **WebCrypto Hydration:** Decrypts sensitive `data-noai-encrypt` text on-the-fly into a Closed Shadow DOM.
+4. **Invisible Honeypot Traps:** Deploys `rel="nofollow"` traps to pollute bad-bot datasets with hallucinated responses.
+
 ## Official Packages & Integrations
 
 Depending on your stack, you can use one of our official integrations to easily add the No-AI Badge to your project!

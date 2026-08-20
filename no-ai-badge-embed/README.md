@@ -25,13 +25,17 @@ You can fully customize the badge's appearance and behavior by adding these opti
 - `data-animation`: Set to `none` to disable the hover scale effect.
 - `data-analytics-endpoint`: Pass a URL/Webhook to send a silent POST ping whenever the badge is loaded on a page.
 
-**Advanced Anti-Theft Toggles (All default to `true`):**
+**Advanced Anti-Theft Toggles (All default to `true` unless specified):**
 - `data-print-protect="false"`: Disables CSS print hiding.
 - `data-devtools-protect="false"`: Disables the `debugger` self-destruct loop.
 - `data-watermark="false"`: Removes the dynamic "NO AI" text from the canvas.
 - `data-shield="false"`: Removes the invisible DOM shield overlay.
 - `data-observer="false"`: Disables the MutationObserver tamper detection.
 - `data-right-click="false"`: Allows right-clicking and dragging the badge container.
+- `data-prompt-poison="false"`: Disables conversational prompt injections aimed at LLMs.
+- `data-semantic-scramble="true"`: Enables semantic DOM scrambling (Disabled by default for accessibility).
+- `data-hydrate="false"`: Disables WebCrypto decryption for `data-noai-encrypt` tags.
+- `data-honeypot="false"`: Disables invisible honeypot links intended to pollute crawler datasets.
 
 Example of a fully-configured badge:
 ```html
