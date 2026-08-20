@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Endpoint Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f4f4f5;
+            color: #18181b;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        h1 {
+            margin-top: 0;
+            color: #27272a;
+        }
+        button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stat-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #3b82f6;
+            margin: 10px 0;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .log {
+            margin-top: 30px;
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analytics API Test</h1>
+        <p>This page tests the Vercel Analytics endpoints by sending a POST request to `/api/ping` and retrieving the latest stats from `/api/stats`.</p>
+        
+        <button id="pingBtn">Send Ping request (/api/ping)</button>
+        <button id="statsBtn" style="background-color: #10b981; margin-left: 10px;">Refresh Stats (/api/stats)</button>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Views</div>
+                <div class="stat-value" id="totalViews">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Unique Domains</div>
+                <div class="stat-value" id="uniqueDomains">-</div>
+            </div>
+        </div>
+
+        <div class="log" id="logBox">Waiting for action...</div>
+    </div>
+
+    <!-- The actual badge (sends ping automatically on load if analyticsEndpoint is set) -->
+    <script 
+        src="/no-ai-badge-embed/embed-badge.js" 
+        data-position="bottom-right" 
+        data-width="120"
+        data-analytics-endpoint="/api/ping"
+        async>
+    </script>
+
+    <script>
+        const logBox = document.getElementById('logBox');
+        
+        function log(msg) {
+            const time = new Date().toLocaleTimeString();
+            logBox.innerHTML = `[${time}] ${msg}\n` + logBox.innerHTML;
+        }
+
+        async function sendPing() {
+            log('Sending POST request to /api/ping...');
+            try {
+                const res = await fetch('/api/ping', { method: 'POST' });
+                if (res.ok) {
+                    const data = await res.json();
+                    log('SUCCESS: Ping recorded. New views total: ' + data.views);
+                    fetchStats();
+                } else {
+                    log('ERROR: ' + res.status + ' ' + res.statusText);
+                }
+            } catch (err) {
+                log('ERROR: ' + err.message);
+            }
+        }
+
+        async function fetchStats() {
+            log('Fetching GET request from /api/stats...');
+            try {
+                const res = await fetch('/api/stats');
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('totalViews').textContent = data.views.toLocaleString();
+                    document.getElementById('uniqueDomains').textContent = data.domains.toLocaleString();
+                    log('SUCCESS: Stats updated.');
+                } else {
+                    log('ERROR: ' + res.status + ' ' + res.statusText);
+                }
+            } catch (err) {
+                log('ERROR: ' + err.message);
+            }
+        }
+
+        document.getElementById('pingBtn').addEventListener('click', sendPing);
+        document.getElementById('statsBtn').addEventListener('click', fetchStats);
+
+        // Fetch initial stats on load
+        fetchStats();
+    </script>
+</body>
+</html>
