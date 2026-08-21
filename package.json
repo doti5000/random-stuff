@@ -6,6 +6,7 @@
     "build": "echo \"No build step required for static site\""
   },
   "dependencies": {
-    "ioredis": "^5.3.2"
+    "ioredis": "^5.3.2",
+    "javascript-obfuscator": "^5.5.0"
   }
 }

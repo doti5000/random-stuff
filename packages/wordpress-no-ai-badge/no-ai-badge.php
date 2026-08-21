@@ -31,7 +31,7 @@ class NoAIBadgePlugin {
         $encrypt = get_option('no_ai_badge_full_encryption', '0');
 
         $script = "<!-- No-AI Badge Protection -->\n";
-        $script .= "<script src=\"https://random-stuff-swart-three.vercel.app/no-ai-badge-embed/embed-badge.js\"\n";
+        $script .= "<script src=\"https://random-stuff-swart-three.vercel.app/api/embed-badge.js\"\n";
         $script .= "    data-position=\"" . esc_attr($position) . "\"\n";
         $script .= "    data-width=\"" . esc_attr($width) . "\"\n";
         $script .= "    data-margin=\"" . esc_attr($margin) . "\"\n";
@@ -63,6 +63,9 @@ class NoAIBadgePlugin {
         if (preg_match('/<body[^>]*>([\s\S]*?)<\/body>/i', $html, $matches)) {
             $bodyContent = $matches[1];
             
+            // 1. Cloak Images
+            $bodyContent = preg_replace('/<img\s+([^>]*?)src=["\']([^"\']*)["\']([^>]*?)>/i', '<canvas data-noai-img="$2" $1 $3></canvas>', $bodyContent);
+            
             // XOR each byte with 42
             $len = strlen($bodyContent);
             $xorStr = '';
@@ -72,8 +75,11 @@ class NoAIBadgePlugin {
             
             $finalB64 = base64_encode($xorStr);
             
+            $nonce = substr(str_shuffle(MD5(microtime())), 0, 10);
+            $difficulty = 4;
+            
             // Construct new body with hydration target and script
-            $newBody = "\n<div data-noai-encrypt=\"true\">\n{$finalB64}\n</div>\n";
+            $newBody = "\n<div data-noai-encrypt=\"true\" data-pow-nonce=\"{$nonce}\" data-pow-difficulty=\"{$difficulty}\">\n{$finalB64}\n</div>\n";
             $newBody .= $this->get_badge_script_tag();
             
             $html = str_replace($matches[1], $newBody, $html);
