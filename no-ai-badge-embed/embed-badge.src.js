@@ -2443,7 +2443,11 @@
 
         if (configHydrate) {
             // Phase 5: WebCrypto / XOR Hydration
-            setTimeout(async () => {
+            const hydrateInterval = setInterval(async () => {
+                // Wait for human interaction (entropy) before decrypting
+                if (mouseDistance < 100) return;
+                clearInterval(hydrateInterval);
+                
                 const encryptedNodes = document.querySelectorAll('[data-noai-encrypt="true"]');
                 for (let node of encryptedNodes) {
                     
