@@ -1,5 +1,4 @@
 {
   "framework": null,
-  "buildCommand": "echo 'No build step required'",
-  "outputDirectory": "."
+  "buildCommand": "echo 'No build step required'"
 }
