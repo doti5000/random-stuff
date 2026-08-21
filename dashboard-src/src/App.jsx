@@ -262,6 +262,33 @@ function App() {
             </div>
           </div>
         </div>
+        
+        <div className="card">
+          <div className="card-title">
+            <Globe size={18} />
+            Top Attacking Countries
+          </div>
+          {data.topCountries && data.topCountries.length > 0 ? (
+            <ul className="threat-list">
+              {data.topCountries.map((c, i) => {
+                let countryName = c.code;
+                try {
+                    countryName = new Intl.DisplayNames(['en'], { type: 'region' }).of(c.code) || c.code;
+                } catch(e) {}
+                return (
+                  <li key={i} className="threat-item" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <div className="threat-info">
+                      <h4 style={{margin: 0}}>{countryName}</h4>
+                    </div>
+                    <div style={{color: 'var(--accent-red)', fontWeight: 'bold'}}>{c.count} blocks</div>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>No country data available.</p>
+          )}
+        </div>
 
         <div className="card">
           <div className="card-title">
