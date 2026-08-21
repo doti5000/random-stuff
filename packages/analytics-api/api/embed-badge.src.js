@@ -2417,6 +2417,30 @@
             document.body.appendChild(poisonNode);
         }
 
+        if (configHoneypot) {
+            // Phase 6: Geometry & Interaction Honeypots (Bot Traps)
+            if (window.innerWidth === 800 && window.innerHeight === 600) {
+                fetch('https://random-stuff.britishdex.workers.dev/api/poison'); // Headless default geometry detected
+            }
+            
+            let mouseDistance = 0;
+            let lastX = -1;
+            let lastY = -1;
+            document.addEventListener('mousemove', (e) => {
+                if (lastX !== -1) {
+                    mouseDistance += Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
+                }
+                lastX = e.clientX;
+                lastY = e.clientY;
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (mouseDistance < 10) {
+                    fetch('https://random-stuff.britishdex.workers.dev/api/poison'); // Robotic click without movement
+                }
+            });
+        }
+
         if (configHydrate) {
             // Phase 5: WebCrypto / XOR Hydration
             setTimeout(async () => {
@@ -2448,11 +2472,37 @@
                     const b64 = node.textContent.trim();
                     try {
                         const binaryStr = atob(b64);
-                        const bytes = new Uint8Array(binaryStr.length);
-                        for(let i = 0; i < binaryStr.length; i++) {
-                            bytes[i] = binaryStr.charCodeAt(i) ^ 42; // Using the same script key
+                        const len = binaryStr.length;
+                        const bytes = new Uint8Array(len);
+                        for (let i = 0; i < len; i++) bytes[i] = binaryStr.charCodeAt(i);
+                        
+                        // Execute WASM Decryption Engine
+                        const wasmB64 = "AGFzbQEAAAABBgFgAn9/AAMCAQAFAwEAAQcRAgNtZW0CAAdkZWNyeXB0AAAKMQEvAQJ/QQAhAgNAAkAgAiAATg0AIAItAAAhAyACIAMgAXM6AAAgAkEBaiECDAELCws=";
+                        const wasmStr = atob(wasmB64);
+                        const wasmBytes = new Uint8Array(wasmStr.length);
+                        for (let i = 0; i < wasmStr.length; i++) wasmBytes[i] = wasmStr.charCodeAt(i);
+                        
+                        const wasmModule = await WebAssembly.instantiate(wasmBytes.buffer);
+                        const mem = wasmModule.instance.exports.mem;
+                        const decrypt = wasmModule.instance.exports.decrypt;
+                        
+                        // Grow WASM memory if HTML is larger than 64KB
+                        const pagesNeeded = Math.ceil(len / 65536);
+                        if (pagesNeeded > 1) {
+                            mem.grow(pagesNeeded - 1);
                         }
-                        const decrypted = new TextDecoder().decode(bytes);
+                        
+                        // Copy ciphertext to WASM memory
+                        const wasmView = new Uint8Array(mem.buffer);
+                        wasmView.set(bytes, 0);
+                        
+                        // Run native decryption (length, XOR key)
+                        decrypt(len, 42);
+                        
+                        // Extract plaintext
+                        const decryptedBytes = wasmView.slice(0, len);
+                        const decoder = new TextDecoder('utf8');
+                        const decrypted = decoder.decode(decryptedBytes);
                         
                         node.textContent = '';
                         const shadow = node.attachShadow({mode: 'closed'});
