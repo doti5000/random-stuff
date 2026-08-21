@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "No-AI Shield (Social Protector)",
+  "version": "1.0.0",
+  "description": "Encrypts your social media posts from AI scrapers.",
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ]
+}
