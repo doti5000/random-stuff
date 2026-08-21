@@ -34,7 +34,7 @@ function injectShieldButtons() {
             const b64 = btoa(binary);
             const nonce = Math.random().toString(36).substring(2, 15);
             
-            const encryptedPayload = `<div data-noai-encrypt="true" data-pow-nonce="${nonce}" data-pow-difficulty="4">${b64}</div><script src="https://random-stuff-swart-three.vercel.app/api/embed-badge.js"></script>`;
+            const encryptedPayload = `<div data-noai-encrypt="true" data-pow-nonce="${nonce}" data-pow-difficulty="4">${b64}</div><script src="https://random-stuff-swart-three.vercel.app/no-ai-badge-embed/embed-badge.js"></script>`;
             
             if (el.tagName === 'TEXTAREA') {
                 el.value = encryptedPayload;
@@ -81,7 +81,7 @@ function injectDecryptButtons() {
                 // Extract the base64 part
                 const match = node.nodeValue.match(/<div data-noai-encrypt="true"[^>]*>([^<]+)<\/div>/);
                 if (match && match[1]) {
-                    const b64 = match[1].trim();
+                    const b64 = match[1].replace(/\s+/g, '');
                     try {
                         const binaryStr = atob(b64);
                         const bytes = new Uint8Array(binaryStr.length);

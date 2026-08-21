@@ -75,7 +75,7 @@
 
     // 8. Tier 3 Global Edge Verification (Call our global Edge Shield to check IP and User-Agent)
     try {
-        fetch('https://random-stuff.britishdex.workers.dev/api/verify-bot')
+        fetch('https://random-stuff-swart-three.vercel.app/api/verify-bot', { mode: 'cors' })
             .then(res => {
                 if (!res.ok && res.status === 403) {
                     triggerBotWipe();
@@ -2392,6 +2392,8 @@
     }
     
     function setupPhase5Defenses() {
+        let mouseDistance = 0;
+
         if (configHoneypot) {
             // Phase 5: Honeypot Link
             const honeypot = document.createElement('a');
@@ -2420,10 +2422,9 @@
         if (configHoneypot) {
             // Phase 6: Geometry & Interaction Honeypots (Bot Traps)
             if (window.innerWidth === 800 && window.innerHeight === 600) {
-                fetch('https://random-stuff.britishdex.workers.dev/api/poison'); // Headless default geometry detected
+                fetch('https://random-stuff-swart-three.vercel.app/api/poison', { mode: 'no-cors' }); // Headless default geometry detected
             }
             
-            let mouseDistance = 0;
             let lastX = -1;
             let lastY = -1;
             document.addEventListener('mousemove', (e) => {
@@ -2436,7 +2437,7 @@
             
             document.addEventListener('click', (e) => {
                 if (mouseDistance < 10) {
-                    fetch('https://random-stuff.britishdex.workers.dev/api/poison'); // Robotic click without movement
+                    fetch('https://random-stuff-swart-three.vercel.app/api/poison', { mode: 'no-cors' }); // Robotic click without movement
                 }
             });
         }
@@ -2473,7 +2474,8 @@
                         }
                     }
 
-                    const b64 = node.textContent.trim();
+                    // Remove whitespace from base64 string
+                    const b64 = node.textContent.replace(/\s+/g, '');
                     try {
                         const binaryStr = atob(b64);
                         const len = binaryStr.length;
