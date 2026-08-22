@@ -31,7 +31,7 @@ class NoAIBadgePlugin {
         $encrypt = get_option('no_ai_badge_full_encryption', '0');
 
         $script = "<!-- No-AI Badge Protection -->\n";
-        $script .= "<script src=\"https://random-stuff-swart-three.vercel.app/api/embed-badge.js\"\n";
+        $script .= "<script src=\"https://random-stuff-swart-three.vercel.app/no-ai-badge-embed/embed-badge.js\"\n";
         $script .= "    data-position=\"" . esc_attr($position) . "\"\n";
         $script .= "    data-width=\"" . esc_attr($width) . "\"\n";
         $script .= "    data-margin=\"" . esc_attr($margin) . "\"\n";

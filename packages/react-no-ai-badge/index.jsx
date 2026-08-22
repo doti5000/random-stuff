@@ -40,7 +40,7 @@ export function NoAiShield({ children, position = 'bottom-right' }) {
                     {b64}
                 </div>
                 <div dangerouslySetInnerHTML={{__html: adversarialPrompt + svgFilter}} suppressHydrationWarning></div>
-                <script src="https://random-stuff-swart-three.vercel.app/api/embed-badge.js" data-position={position} suppressHydrationWarning></script>
+                <script src="https://random-stuff-swart-three.vercel.app/no-ai-badge-embed/embed-badge.js" data-position={position} suppressHydrationWarning></script>
             </>
         );
     }
